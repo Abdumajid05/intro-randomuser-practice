@@ -1,11 +1,11 @@
 import requests 
-
+import json
 url = 'https://randomuser.me/api/'
 
 
 def get_version():
     '''get requests module'''
-    pass
+    return requests.__version__
 
 
 def get_status_code(url: str) -> int:
@@ -17,9 +17,9 @@ def get_status_code(url: str) -> int:
     Returns:
         str: status code of response
     '''
-    pass
+    return requests.get(url)
 
-
+ 
 def get_content_type(url: str) -> str:
     '''get content type of response
     
@@ -29,7 +29,7 @@ def get_content_type(url: str) -> str:
     Returns:
         str: content type of response
     '''
-    pass
+    return requests.get(url).content
 
 
 def get_headers(url: str) -> dict:
@@ -41,7 +41,7 @@ def get_headers(url: str) -> dict:
     Returns:
         str: headers of response
     '''
-    pass
+    return requests.get(url).headers
 
 
 def get_text(url: str) -> str:
@@ -53,7 +53,8 @@ def get_text(url: str) -> str:
     Returns:
         str: text of response
     '''
-    pass
+    return  requests.get(url).text
+
 
 
 def text_to_dict(text: str) -> dict:
@@ -65,7 +66,7 @@ def text_to_dict(text: str) -> dict:
     Returns:
         str: dict
     '''
-    pass
+    return json.dumps(text)
 
 
 def get_data(url: str) -> dict:
@@ -77,7 +78,8 @@ def get_data(url: str) -> dict:
     Returns:
         dict: data
     '''
-    pass
+    return requests.get(url).json()
+
 
 def get_user(url: str) -> dict:
     '''get user
@@ -88,7 +90,7 @@ def get_user(url: str) -> dict:
     Returns:
         dict: user
     '''
-    pass
+    return requests.get(url).json()["results"][0]
 
 def get_users(url: str, n: int) -> list:
     '''get user
@@ -100,4 +102,9 @@ def get_users(url: str, n: int) -> list:
     Returns:
         list: list of users
     '''
-    pass
+    l=[]
+    for i in range(n):
+        l.append(requests.get(url).json()["results"][0])
+    return l
+#print(text_to_dict(get_text(url)))
+print(get_users(url,100))
